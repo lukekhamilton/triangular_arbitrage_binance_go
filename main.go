@@ -26,7 +26,7 @@ func minqrt() map[string]string {
 		return nil
 	}
 	for _, each := range info.Symbols {
-		symbolinfos[each.Symbol] = each.Filters[1]["minQty"]
+		symbolinfos[each.Symbol] = each.Filters[2]["minQty"].(string)
 	}
 	return symbolinfos
 }
