@@ -46,10 +46,24 @@ func forward_check_profit_coin(coins []string, prices map[string]float64, thresh
 			diff := ((arbprice / baseprice) - 1) * 100.0
 			profit := diff - fee
 			if profit > threshold {
-				if profit > highProfit {
-					highProfit = profit
-					highProfitcoin = coin
-				}
+				fmt.Println("-----------------------------------------------")
+				fmt.Printf("Coin: %v\n", coin)
+				fmt.Println("basesymbol: ", basesymbol)
+				fmt.Println("midsymbol: ", midsymbol)
+				fmt.Println("quotesymbol: ", quotesymbol)
+				fmt.Printf("prices[basesymbol]: %v\n", prices[basesymbol])
+				fmt.Printf("prices[midsymbol]:  %v\n", prices[midsymbol])
+				fmt.Printf("prices[quotesymbol]:%v\n", prices[quotesymbol])
+				fmt.Printf("arbprice:%v\n", arbprice)
+				fmt.Printf("diff:%v\n", diff)
+				fmt.Printf("profit:%v\n", profit)
+
+				// if profit > highProfit {
+				// 	highProfit = profit
+				// 	highProfitcoin = coin
+				// 	fmt.Println("highProfitcoin: ", highProfitcoin)
+				// 	fmt.Println("highProfit: ", highProfit)
+				// }
 			}
 		}
 	}
@@ -162,10 +176,13 @@ func arb(symbolinfo map[string]string) {
 		coin = strings.Replace(coin, "BNB", "", -1)
 		COINS = append(COINS, coin)
 	}
-	Coin, Profit := forward_check_profit_coin(COINS, prices_map, Threshold, Fee)
-	if Profit > 0 {
-		forward_excecute(Coin, Tradesize, prices_map, symbolinfo)
-	}
+
+	forward_check_profit_coin(COINS, prices_map, Threshold, Fee)
+	// Coin, Profit := forward_check_profit_coin(COINS, prices_map, Threshold, Fee)
+	// Coin, Profit := forward_check_profit_coin(COINS, prices_map, Threshold, Fee)
+	// if Profit > 0 {
+	// 	forward_excecute(Coin, Tradesize, prices_map, symbolinfo)
+	// }
 }
 
 func main() {
@@ -174,5 +191,4 @@ func main() {
 	for {
 		arb(symbolinfo)
 	}
-
 }
